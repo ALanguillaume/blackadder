@@ -4,7 +4,7 @@ library(stringr)
 source("scripts/blackadder_funcs.R")
 
 
-### Download year pages to extract episodes links --------------------------------------------------
+##### Download year pages to extract episodes links --------------------------------------------------
 
 # url of the blog hosting all episode transcripts
 url_master <- "http://allblackadderscripts.blogspot.com/"
@@ -34,7 +34,7 @@ episodes_url <- raw_html_files %>%
 episodes_html <- str_extract(url_episodes, "[^/]*(?!/).html$")
 
 
-### Download all episodes --------------------------------------------------------------------------
+##### Download all episodes --------------------------------------------------------------------------
 
 # Define paths (including file names) for year html files 
 episodes_paths <- file.path("data/raw_html/episodes", episodes_html)
