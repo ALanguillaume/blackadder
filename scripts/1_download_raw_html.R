@@ -17,7 +17,7 @@ urls <- paste0(url_master, 2012, "/", 11:12, "/")
 raw_html_names <- paste("allblackadderscripts", 2012, 11:12, ".html", sep = "_")
 raw_html_paths <- file.path("data/raw_html/year_pages", raw_html_names)
 
-# Download the year htnl file
+# Download the year html file
 walk2(.x = urls, 
 			.y = raw_html_paths,
 			~ download.file(url = .x, destfile = .y))
@@ -31,7 +31,7 @@ episodes_url <- raw_html_files %>%
 	unlist()
 
 # Extract only the name of the html files
-episodes_html <- str_extract(url_episodes, "[^/]*(?!/).html$")
+episodes_html <- str_extract(episodes_url, "[^/]*(?!/).html$")
 
 
 ##### Download all episodes --------------------------------------------------------------------------

@@ -7,7 +7,7 @@
 #' Parse raw html year page and get the episode links
 #'
 #' @param html_file character vector of which each element is a line 
-#' from html file of a given year.
+#' from the html file of a given year.
 
 get_episode_links <- function(html_file){
 	
@@ -23,34 +23,66 @@ get_episode_links <- function(html_file){
 
 ##### 2_clean_html.R -------------------------------------------------------------------------------
 
+#' Get raw text of each episode
+#' 
+#' Each episode text is included in the following html section:
+#' <div dir="ltr" style="text-align: left;" trbidi="on"> raw_text </div> 
+#' This function spot the corresponfing html tags and returns the raw text.
+#' 
+#' @param html_file character vector of which each element is a line 
+#' from the html file of a given episode.
+
 get_raw_text_episode <- function(html_file){
-	start <- str_which(html_file, '<div dir="ltr" style="text-align: left;" trbidi="on"')
+	
+	# Get index of first tag
+	start <- str_which(html_file, '<div dir="ltr" style="text-align: left;" trbidi="on">')
+	# Get index of all </div> tags
 	div_ends <- str_which(html_file, '</div>')
+	# Get index of the </div> tag coming right after start tag
 	end <- div_ends[start < div_ends][1]
+	
 	text_raw <- html_file[start:end]
+	
 	return(text_raw)
 }
 
+
+#' Clean raw text
+#'
+#' The raw html texts come in two different flavour either
+#' formatted with html code or as plain text.
+#' The following two functions remove all useless formatting from 
+#' the raw text.
+#'
+#' @param raw_text character vector of which each element is a line 
+#' from the raw text of a given episode.
+
 clean_html_formatted_episodes <- function(raw_text){
+	
 	raw_text %>% 
 		str_split("<br />") %>%
 		`[[`(2) %>%
 		str_remove_all("&nbsp;") %>%
 		str_remove("</div>")
+	
 }
 
-# clean_plain_text_episodes <- function(raw_text){
-# 	id_pre <- str_which(raw_text, "<pre>|</pre>")
-# 	text <- raw_text[seq(id_pre[1], id_pre[2])]
-# 	text <- str_remove_all(text,"<.*>")
-# 	return(text)
-# }
-
 clean_plain_text_episodes <- function(raw_text){
+	
 	raw_text %>%
 		str_remove_all("<.*>|&nbsp;") %>%
 		str_remove("\\.mwsb\\{.*\\}|\\.mwst, \\.mwst a\\{.*\\}")
+	
 }
+
+
+#' Create .txt file name for each episode
+#'
+#' From the information found in the text header, create consistent
+#' .txt file name for each episode.
+#'
+#' @header character vector of which each element is a line 
+#' from the header of a given episode.
 
 create_file_name <- function(header){
 	
