@@ -1,0 +1,18 @@
+---
+title: "The Cunning Report"
+author: "Antoine Languillaume"
+date: "5/5/2020"
+output: html_document
+---
+
+
+```{r setup, include = FALSE}
+library(magick)
+library(knitr)
+library(here)
+```
+
+
+```{r, echo = FALSE, fig.align = 'center', fig.dim = c(9, 7)}
+image_read(here("./results/figures/top-10-words-season.png"))
+```

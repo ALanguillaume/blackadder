@@ -21,7 +21,7 @@ get_episode_links <- function(html_file){
 }
 
 
-##### 2_clean_html.R -------------------------------------------------------------------------------
+##### 2_clean_html_to_text.R -----------------------------------------------------------------------
 
 #' Get raw text of each episode
 #' 
@@ -115,3 +115,29 @@ create_file_name <- function(header){
 	
 }
 
+
+###### 4_analysis.R --------------------------------------------------------------------------------
+
+#' Draw barplot of most frequent word for one season
+#'
+#' @param df A data.frame containing the columns:
+#' - word : words in a given season.
+#' - season: the number of the given season.
+#' - n: the number of occurences of each word in that season.
+#' 
+#' @color A character string defining a hex (RGB) color code.
+
+plot_nb_words_season <- function(df, color){
+	df %>%
+		arrange(n) %>%
+		mutate(word = forcats::as_factor(word)) %>%
+		ggplot() +
+		aes(x = word, y = n) +
+		geom_col(fill = color) +
+		xlab(NULL) +
+		coord_flip() +
+		ylim(0, 450) +
+		ylab("Number of occurences") +
+		ggtitle(paste("Season", unique(df$season), sep = " ")) +
+		theme(legend.position = "none")
+}

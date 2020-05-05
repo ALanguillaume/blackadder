@@ -1,14 +1,16 @@
 
+required_packages <- c("tidyverse", "tidytext", "magick", "here", "knitr", "rmarkdown")
 
-year_html <- list.files("data/raw_html/year_pages/")
-
-if(length(year_html) == 0){
-	source("scripts/1_download_raw_html.R")
+for (package in required_packages) {
+	if("xtable" %in% rownames(installed.packages()) == FALSE){
+		install.packages(package, dependencies = TRUE)
+	}
 }
 
-episodes_html <- list.files("data/raw_html/episodes/")
+all_scripts <- list.files("scripts", full.names = TRUE) 
 
+target_scripts <- all_scripts[grep("[1-9]", all_scripts)]
 
-source("scripts/2_clean_html.R")
-file.mtime(list.files("data/raw_html/year_pages/"))
-list.files("data/raw_html/year_pages/", full.names = TRUE) %>% file.mtime()
+for(script in target_scripts) source(script, local = TRUE)
+
+rmarkdown::render("report/The_Cunning_Report.Rmd")
