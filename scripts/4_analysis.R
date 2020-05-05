@@ -6,6 +6,9 @@ library(ggplot2)
 library(tidytext)
 source("scripts/blackadder_funcs.R")
 
+
+##### Count word occurences ------------------------------------------------------------------------
+
 # Read words
 words_paths <- list.files("data/words/", full.names = TRUE)
 words_episodes <- words_paths %>%
@@ -29,15 +32,16 @@ words_by_season <- episodes$curated_words %>%
 	map(bind_rows) %>%
 	bind_rows(.id = "season") 
 
-
 top_10_words_by_season <- 
 	words_by_season %>% 
 	group_by(season) %>%
 	count(word, sort = TRUE) %>%
 	slice(1:10)
 
-color_seasons <- RColorBrewer::brewer.pal(n = 4, name = "Set1")
 
+###### Ploting -------------------------------------------------------------------------------------
+
+color_seasons <- RColorBrewer::brewer.pal(n = 4, name = "Set1")
 
 list_top_10_words_by_season <- top_10_words_by_season %>% split(.$season)
 	
