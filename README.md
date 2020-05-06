@@ -4,5 +4,5 @@
 # Simple Text Analyis of The Black Adder
 
 This repository is the companion example of the presentation **Caring
-about Code**. It is meant to showcase R coding best practice and teach
-student how to set up modular workflow.
+about Code**. It is meant to showcase R coding best practices and teach
+students how to set up a modular workflow.
