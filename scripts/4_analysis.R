@@ -1,8 +1,5 @@
 
-library(stringr)
-library(purrr)
-library(dplyr)
-library(ggplot2)
+library(tidyverse)
 library(tidytext)
 source("scripts/blackadder_funcs.R")
 
@@ -18,8 +15,8 @@ words_episodes <- words_paths %>%
 # including also season and episode number
 nb_season_and_episode <- str_extract_all(words_paths, "\\d")
 episodes <-  tibble(words = words_episodes,
-										season = map_chr(nb_season_and_episode, 1),
-										episode = map_chr(nb_season_and_episode, 2))
+                    season = map_chr(nb_season_and_episode, 1),
+                    episode = map_chr(nb_season_and_episode, 2))
 
 # Remove "stop words" .i.e highly recurring words in the English lenaguage
 # not useful for text analysis.
@@ -44,14 +41,14 @@ top_10_words_by_season <-
 color_seasons <- RColorBrewer::brewer.pal(n = 4, name = "Set1")
 
 list_top_10_words_by_season <- top_10_words_by_season %>% split(.$season)
-	
+
 season_plots <- map2(.x = list_top_10_words_by_season, 
-										 .y = color_seasons,
-										 .f = ~ plot_nb_words_season(df = .x, color = .y))
+                     .y = color_seasons,
+                     .f = ~ plot_nb_words_season(df = .x, color = .y))
 
 plot_all_season <- ggpubr::ggarrange(plotlist = season_plots)
 
 ggsave(filename = "results/figures/top-10-words-season.png", 
-			 plot =  plot_all_season, 
-			 width = 9,
-			 height = 7)
+       plot =  plot_all_season, 
+       width = 9,
+       height = 7)
