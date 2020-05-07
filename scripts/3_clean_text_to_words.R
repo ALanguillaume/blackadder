@@ -37,17 +37,17 @@ dialog_episodes <- text_episodes %>%
 # Tokenize words
 words_episodes <- dialog_episodes %>%
 	map(function(episode){ 
-	episode %>%
-		tibble(line = seq_along(.), text = .) %>%
+		episode %>%
+			tibble(line = seq_along(.), text = .) %>%
 			tidytext::unnest_tokens(output = word, 
 															input = text)
-}) 
+	}) 
 
 # Save (on .csv file per episode)
 words_paths <- str_replace(text_paths, "\\.txt$", "\\.csv")
 walk2(.x = words_episodes, 
-		 .y = words_paths,
-		 .f = ~ write_csv(x = .x, path = .y))
+			.y = words_paths,
+			.f = ~ write_csv(x = .x, path = .y))
 
 
 

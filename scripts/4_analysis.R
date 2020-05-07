@@ -44,7 +44,7 @@ top_10_words_by_season <-
 color_seasons <- RColorBrewer::brewer.pal(n = 4, name = "Set1")
 
 list_top_10_words_by_season <- top_10_words_by_season %>% split(.$season)
-	
+
 season_plots <- map2(.x = list_top_10_words_by_season, 
 										 .y = color_seasons,
 										 .f = ~ plot_nb_words_season(df = .x, color = .y))
