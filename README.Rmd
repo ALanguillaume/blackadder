@@ -12,9 +12,16 @@ knitr::opts_chunk$set(
   warning = FALSE,
   out.width = "100%"
 )
-library(magrittr)
+library(magick)
+library(here)
 ```
 
 # Simple Text Analyis of The Black Adder
 
 This repository is the companion example of the presentation [Caring about Code](https://github.com/ALanguillaume/CaringAboutCode). It is meant to showcase R coding best practices and teach students how to set up a modular workflow.
+
+## The Cunning Result:
+
+```{r, echo = FALSE, fig.align = 'center', fig.dim = c(9, 7)}
+image_read(here("./results/figures/top-10-words-season.png"))
+```
