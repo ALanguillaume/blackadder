@@ -47,3 +47,4 @@ walk2(.x = episodes$text,
       .y = file.path("data/text", episodes$file_name),
       .f = ~ readr::write_lines(x = .x, path = .y))
 
+
