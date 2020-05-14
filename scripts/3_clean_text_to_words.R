@@ -45,7 +45,9 @@ words_episodes <- dialog_episodes %>%
 	}) 
 
 # Save (on .csv file per episode)
-words_paths <- str_replace(text_paths, "\\.txt$", "\\.csv")
+words_paths <- text_paths %>% 
+  str_replace("/text/", "/words/") %>%
+  str_replace("\\.txt$", "\\.csv")
 walk2(.x = words_episodes, 
       .y = words_paths,
       .f = ~ write_csv(x = .x, path = .y))
