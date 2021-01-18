@@ -50,7 +50,7 @@ words_paths <- text_paths %>%
   str_replace("\\.txt$", "\\.csv")
 walk2(.x = words_episodes, 
       .y = words_paths,
-      .f = ~ write_csv(x = .x, path = .y))
+      .f = ~ write_csv(x = .x, file = .y))
 
 
 

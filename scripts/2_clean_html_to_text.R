@@ -45,6 +45,6 @@ episodes$file_name <- map_chr(headers, create_file_name)
 # Write episode texts to .txt files
 walk2(.x = episodes$text,
       .y = file.path("data/text", episodes$file_name),
-      .f = ~ readr::write_lines(x = .x, path = .y))
+      .f = ~ readr::write_lines(x = .x, file = .y))
 
 
