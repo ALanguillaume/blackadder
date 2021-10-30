@@ -18,7 +18,7 @@ episodes <- tibble(raw_text = map(html_files, get_raw_text_episode))
 nb_lines_raw_text <- map_dbl(episodes$raw_text, length)
 episodes$format <- ifelse(nb_lines_raw_text == 2, "html_formatted", "plain_text")
 
-# Make a functions containing specific cleaning functions for each format
+# Make a list of functions containing specific cleaning functions for each format
 cleaning_funcs <- list(clean_html_formatted_episodes, 
                        clean_plain_text_episodes)
 
